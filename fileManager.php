@@ -166,7 +166,7 @@ if(isset($_GET['delete']) && !empty($_GET['delete'])){
 		$url = SITE_URL . SELF_SCRIPT . '?' . str_replace('delete', '', $get_query);
 		header("Location:$url");
 	}else{
-		$errors[] = 'Ошибка при удалении';
+		$errors[] = 'Error while deleting';
 	}
 }
 
@@ -182,7 +182,7 @@ if(isset($_POST['save_changes'])){
 		$url = SITE_URL . '?edit_item=' . $e;
 		header("Location:$url");
 	}else{
-		$errors[] = 'Ошибка при сохранении';
+		$errors[] = 'Error while saving';
 	}
 }
 if(isset($_POST['discard_changes'])){//cancel and close editor
@@ -201,7 +201,7 @@ if(isset($_POST['archivate'])){
 			foreach ($_POST['files_to_archiving'] as $ky => $f_arch) {
 				if(is_file($path . '/' . win_to_utf($f_arch, true)))$zip->addFile($path . '/' . $f_arch, $f_arch);
 			}
-			if(!$zip->close()){$errors[] = 'Ошибка при создании архива';};
+			if(!$zip->close()){$errors[] = 'Error while creating archive';};
 			if(count($errors) == 0){
 				$url = SITE_URL . SELF_SCRIPT . '?rename_item=' . $zipname . '.zip';
 				header("Location:$url");
@@ -209,10 +209,10 @@ if(isset($_POST['archivate'])){
 			}
 
 		}else{
-			$errors[] = 'Ошибка при создании архива';
+			$errors[] = 'Error while creating archive: ZipArchive extension error';
 		}
 	}else{
-		$errors[] = 'Ошибка при создании архива';
+		$errors[] = 'Error while creating archive: no files';
 	}
 	
 }
@@ -222,7 +222,7 @@ if(isset($_GET['unpack']) && !empty($_GET['unpack'])){
 	$zip_u = new ZipArchive;
     $zip_u->open($path . '/' . $archive);
     $zip_u->extractTo($path);
-    if(!$zip_u->close()){$errors[] = 'Ошибка при извлечении файлов из архива';}
+    if(!$zip_u->close()){$errors[] = 'Error unzipping';}
     if(count($errors) == 0){
     	$url = SITE_URL . SELF_SCRIPT . '?success=upk';
 		header("Location:$url");
@@ -280,7 +280,7 @@ if(isset($_GET['cancel_arch'])){
 		<?php if(isset($_GET['edit_item']) && !empty($_GET['edit_item'])){ ?>
 		<hr>
 		<form method="POST" class="editor">
-			<h4>Редактор тектовых файлов</h4>
+			<h4>Text files editor</h4>
 			<p><?=$_GET['edit_item']?></p>
 			<textarea id="" cols="100" rows="20" name="text"><?=$file_content;?></textarea>
 			<br><br><input type="submit" value="Save" name="save_changes">
@@ -323,7 +323,7 @@ if(isset($_GET['cancel_arch'])){
 							<?php } ?>
 							<?=is_dir($path . '/' . win_to_utf($item, true))&&$item!='.'?'&#x1f4c1;':
 							(is_file($path . '/' . win_to_utf($item, true))?'&#x1f5b9;':'');?>
-							<?=$item=='.'?'&#x21e6; назад':$item;?>
+							<?=$item=='.'?'&#x21e6; back':$item;?>
 						</a>
 						<?php } ?>
 					</td>
@@ -335,10 +335,10 @@ if(isset($_GET['cancel_arch'])){
 					<td>
 						<?php if($item != '.'){?>
 							<?php if(is_file($path . '/' . win_to_utf($item, true))){?>
-								<a href="<?=$url . '/' . $item;?>" download>Скачать</a>
+								<a href="<?=$url . '/' . $item;?>" download>Download</a>
 							<?php } ?>
 							<a href="<?=$get_query?'?'.$get_query.'&rename_item='.$item:'?rename_item='.$item;?>">Rename</a> 
-							<a onclick="return confirm('Вы уверены?');" href="<?=$get_query?'?'.$get_query.'&delete='.$item:'?delete='.$item;?>">Delete</a>
+							<a onclick="return confirm('Are you sure?');" href="<?=$get_query?'?'.$get_query.'&delete='.$item:'?delete='.$item;?>">Delete</a>
 							<?php if(in_array(strtolower(pathinfo($path . '/' . $item, PATHINFO_EXTENSION)), $text_extensions)){?> 
 							<a href="<?=$get_query?'?'.$get_query.'&edit_item='.$item:'?edit_item='.$item;?>">Edit</a>
 							<?php } ?>
@@ -354,7 +354,7 @@ if(isset($_GET['cancel_arch'])){
 		<?php if(isset($_GET['for_arch'])){ ?>
 		<div class="archiving-buttons">
 			<button class="archivate"><a href="<?=SITE_URL  . '?cancel_arch=1';?>">Cancel</a></button>
-			<input class="archivate" type="submit" value="Создать архив" name="archivate" >
+			<input class="archivate" type="submit" value="Create archive" name="archivate" >
 		</div>
 		<?php } ?>
 	</form>
