@@ -8,7 +8,7 @@ main features <br />
   - uploading and downloading files <br />
   - packing and unpacking zip archives <br />
 
-depended on your file system and server configuration you may need to configure SITE_URL(url where script works), ROOT_DIR (script root directory), SELF_SCRIPT (application file name) <br /
+depended on your file system and server configuration you may need to configure SITE_URL(url where script works), ROOT_DIR (script root directory), SELF_SCRIPT (application file name) <br />
 
 tested on linux and windows
 dependencies <br />
