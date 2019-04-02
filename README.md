@@ -10,7 +10,7 @@ main features <br />
 
 depended on your file system and server configuration you may need to configure SITE_URL(url where script works), ROOT_DIR (script root directory), SELF_SCRIPT (application file name) <br />
 
-tested on linux and windows <br />
-dependencies <br />
+tested on linux and windows <br /> <br />
+dependencies: <br />
  - php 5.6 + <br />
  - php zip extension <br />
